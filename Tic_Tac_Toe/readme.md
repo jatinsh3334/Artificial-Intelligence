@@ -1,67 +1,92 @@
-# 8 Puzzle Problem using A* Algorithm
+# Tic Tac Toe using Minimax Algorithm
 
 ## Aim
-To solve the 8-puzzle problem using the A* search algorithm by finding the shortest sequence of moves from an initial state to the goal state.
+To implement the Tic Tac Toe game in C++ where a human player competes against an AI opponent that uses the **Minimax Algorithm** based on **Game Theory** to always play optimally.
 
 ---
 
 ## Theory
-The **8-puzzle problem** is a sliding puzzle consisting of a 3×3 grid with 8 numbered tiles and one empty space. The objective is to rearrange the tiles from a given initial state to the goal state by moving one tile at a time into the empty space.
 
-The **A* algorithm** is a best-first search algorithm that finds the shortest path by combining:
-- **g(n):** Cost from the start node to the current node.  
-- **h(n):** Heuristic estimate of the cost from the current node to the goal.  
-- **f(n) = g(n) + h(n):** Total cost function used to prioritize nodes.
+### Game Theory
+Game Theory is the study of decision-making in competitive situations where multiple players interact.  
+In **Tic Tac Toe**, two players (Human and AI) take alternate turns, and the game is deterministic (no chance events).  
+Optimal strategies ensure the best possible outcome regardless of the opponent’s moves.
 
-Common heuristic functions:
-1. **Misplaced Tile Heuristic** – Counts the number of tiles not in their correct position.  
-2. **Manhattan Distance Heuristic** – Sums the distances of each tile from its correct position.  
+### Minimax Algorithm
+The **Minimax Algorithm** is a recursive decision-making algorithm used for two-player games:
+- **Maximizer (AI)**: Tries to maximize its score (winning).  
+- **Minimizer (Human)**: Tries to minimize AI’s score (forcing AI to lose or draw).  
 
-The A* algorithm guarantees an optimal solution if the heuristic is **admissible** (never overestimates the true cost).
+The evaluation:
+- **+10** → AI wins  
+- **-10** → Human wins  
+- **0** → Draw  
+
+At each step:
+1. AI simulates all possible moves.  
+2. Human simulates all possible counter-moves.  
+3. Backtracking propagates the best move upwards.  
+4. AI selects the move that **maximizes its chance of winning**.  
+
+This ensures that the AI **never loses** (at worst, it draws).
 
 ---
 
 ## Data Representation
-- **State Representation:** A 3×3 matrix representing tile positions (0 denotes the empty space).  
-- **Node Structure:**  
-  - Current state (matrix)  
-  - Parent pointer (to reconstruct the solution path)  
-  - g(n), h(n), f(n) values  
+- **Board:** A 3×3 matrix (`char board[3][3]`) with values:
+  - `'X'` → Human move  
+  - `'O'` → AI move  
+  - `' '` → Empty cell  
+
+- **Player Representation:**
+  - Human → `PLAYER = 1`  
+  - AI → `AI = 2`  
+
+- **Functions Used:**
+  - `initBoard()` → Initialize empty board  
+  - `printBoard()` → Display current board state  
+  - `checkWin()` → Check winner (`PLAYER`, `AI`, or none)  
+  - `movesLeft()` → Check if moves remain  
+  - `minimax()` → Core recursive algorithm  
+  - `bestMove()` → Select optimal AI move  
 
 ---
 
 ## Methodology
-1. Represent the initial and goal state as matrices.  
-2. Define the heuristic function (`h(n)`) — either misplaced tiles or Manhattan distance.  
-3. Insert the initial state into a priority queue (min-heap) with priority `f(n)`.  
-4. While the queue is not empty:  
-   - Extract the node with the smallest `f(n)`.  
-   - If it matches the goal state, return the solution path.  
-   - Otherwise, generate all valid child states by sliding tiles.  
-   - Compute g(n), h(n), f(n) for each child.  
-   - Insert children into the priority queue if not already visited.  
-5. Repeat until the goal is reached.
+1. Initialize the empty board.  
+2. Human enters their move (`X`).  
+3. AI calculates the **best possible move** using `minimax()`.  
+4. Game continues until:
+   - Human wins (`-10`)  
+   - AI wins (`+10`)  
+   - No moves left → Draw  
 
 ---
 
 ## Time Complexity
-- In the **worst case**, A* may expand all possible states.  
-- The 8-puzzle has **9! = 362,880 states**.  
-- **Time Complexity:** `O(b^d)`  
-  - **b:** Branching factor (≈ 2–4 for this problem)  
-  - **d:** Depth of the solution (number of moves)  
-- Practically, complexity depends on the heuristic:  
-  - Misplaced Tiles: Faster but less accurate  
-  - Manhattan Distance: Slower but more optimal  
+- **Minimax explores the entire game tree.**  
+- Total possible board states in Tic Tac Toe = **9! = 362,880**.  
+- In practice, due to pruning (invalid/won states), the explored states are fewer.  
+
+**Time Complexity:**  
+- Worst Case: `O(b^d)`  
+  - `b` = Branching factor (up to 9 moves)  
+  - `d` = Depth of the tree (9 moves maximum)  
+- For Tic Tac Toe: **O(9!) ≈ 362,880 evaluations** (still manageable).  
 
 ---
 
 ## Space Complexity
-- Stores all generated states in the priority queue and visited set.  
-- **Space Complexity:** `O(b^d)` in the worst case.  
-- Requires significant memory since A* keeps track of explored nodes.
+- The recursion stack depth can go up to **9** (maximum moves).  
+- Additional memory for storing states is negligible.  
+
+**Space Complexity:** `O(d)` = `O(9)` ≈ constant.  
 
 ---
 
 ## Conclusion
-The A* algorithm efficiently solves the 8-puzzle problem by using heuristics to guide the search. It guarantees the shortest solution path when an admissible heuristic (like Manhattan distance) is used, but requires considerable time and space for deeper searches.
+The **Minimax Algorithm with Game Theory** ensures the AI plays optimally.  
+- The AI **never loses** — it either wins or forces a draw.  
+- Demonstrates the power of **adversarial search** in decision-making.  
+
+This implementation is a fundamental example of applying **AI search strategies** in games.
