@@ -61,3 +61,36 @@ Here, each row/column/diagonal sums to `15`.
 
 ### Example (4×4 Magic Square)
 
+
+16 2 3 13
+5 11 10 8
+9 7 6 12
+4 14 15 1
+
+
+
+Each row/column/diagonal sums to `34`.
+
+### Time Complexity
+- Filling numbers: O(n²).
+- Flipping selected cells: O(n²).
+- Time Complexity: **O(n²)**
+- Space Complexity: **O(n²)** for storing the square.
+
+---
+
+## Comparison of Methods
+
+| Method            | Applicability                 | Approach Type      | Time Complexity | Space Complexity |
+|-------------------|-------------------------------|-------------------|-----------------|------------------|
+| Siamese Method    | Odd-order squares (3,5,7,...) | Movement-based     | O(n²)           | O(n²)            |
+| 4×4 Method        | Doubly even squares (n%4=0)   | Filling + Inversion | O(n²)           | O(n²)            |
+
+---
+
+## Conclusion
+- The **Siamese Method** is the most straightforward for **odd-order magic squares** using a positional movement rule.  
+- The **4×4 Method** is efficient for **doubly even squares**, relying on a filling-and-inversion pattern.  
+- Both methods achieve the same time complexity of **O(n²)** and space complexity of **O(n²)**, but differ in their construction strategy and applicability.  
+
+
