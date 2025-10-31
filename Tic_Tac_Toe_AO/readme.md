@@ -41,3 +41,60 @@ The algorithm stops when the **root node** becomes a **solved node**, representi
 - **3×3 matrix** representing the game state:
   ```cpp
   char board[3][3];
+
+### Each cell contains:
+
+'X' → Human player
+
+'O' → AI player
+
+' ' → Empty cell
+
+### Player Representation
+#define HUMAN 1
+#define AI 2
+
+### Core Functions
+Function	Description
+initBoard()	Initializes the empty board
+printBoard()	Displays the current state of the game
+checkWin()	Checks whether a player has won
+isMovesLeft()	Returns true if moves are still possible
+evaluate()	Heuristic evaluation of the board state
+AOStar()	Core AO* recursive algorithm implementing AND-OR search
+bestMove()	Determines the AI’s optimal move using AO* output
+Methodology
+
+### Initialize the game board with empty cells.
+
+The human player makes the first move (X).
+
+The AI performs the following steps:
+
+Evaluates all possible moves.
+
+Constructs an AND-OR graph of possible future states.
+
+Uses heuristic evaluation (e.g., potential win/draw chances) to rank moves.
+
+Applies AO* recursively to expand and backtrack until the optimal move path is found.
+
+The selected move minimizes the expected cost (chance of losing) while maximizing the chance of winning.
+
+The process continues until the game reaches a terminal state (win/loss/draw).
+
+### Heuristic Evaluation Function
+
+A heuristic function estimates how favorable a board state is for the AI.
+
+int evaluate(char board[3][3]) {
+    if (checkWin('O'))
+        return +10; // AI win
+    else if (checkWin('X'))
+        return -10; // Human win
+    else
+        return 0;   // Draw or neutral
+}
+
+
+In AO*, these values act as
