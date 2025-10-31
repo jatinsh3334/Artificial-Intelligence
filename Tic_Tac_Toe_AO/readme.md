@@ -81,20 +81,19 @@ Applies AO* recursively to expand and backtrack until the optimal move path is f
 
 The selected move minimizes the expected cost (chance of losing) while maximizing the chance of winning.
 
-The process continues until the game reaches a terminal state (win/loss/draw).
-
-### Heuristic Evaluation Function
-
-A heuristic function estimates how favorable a board state is for the AI.
-
-int evaluate(char board[3][3]) {
-    if (checkWin('O'))
-        return +10; // AI win
-    else if (checkWin('X'))
-        return -10; // Human win
-    else
-        return 0;   // Draw or neutral
-}
 
 
-In AO*, these values act as
+### Advantages of AO*
+
+Reduces search space using heuristics.
+
+Efficient compared to exhaustive methods like Minimax.
+
+Can handle complex decision dependencies through AND nodes.
+
+Adaptable to multi-step logical problems beyond games.
+
+### Conclusion
+
+The AO* algorithm provides a heuristic-driven, optimized approach for AI decision-making in Tic Tac Toe.
+By focusing on the most promising move paths and pruning unproductive branches, it balances efficiency with accuracy — making it a powerful algorithm for game tree exploration and other AND-OR structured problems.
