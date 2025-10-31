@@ -93,7 +93,18 @@ Can handle complex decision dependencies through AND nodes.
 
 Adaptable to multi-step logical problems beyond games.
 
-### Conclusion
+### Heuristic Evaluation Function
 
-The AO* algorithm provides a heuristic-driven, optimized approach for AI decision-making in Tic Tac Toe.
-By focusing on the most promising move paths and pruning unproductive branches, it balances efficiency with accuracy — making it a powerful algorithm for game tree exploration and other AND-OR structured problems.
+A heuristic function estimates how favorable a board state is for the AI.
+
+int evaluate(char board[3][3]) {
+    if (checkWin('O'))
+        return +10; // AI win
+    else if (checkWin('X'))
+        return -10; // Human win
+    else
+        return 0;   // Draw or neutral
+}
+
+
+In AO*, these values act as
