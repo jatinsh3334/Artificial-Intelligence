@@ -89,8 +89,8 @@ A heuristic function estimates how favorable a board state is for the AI.
 
 int evaluate(char board[3][3]) {
     if (checkWin('O'))
-        return +10; // AI win
-    else if (checkWin('X'))
+        return +10; // AI win\*
+    else if (checkWin('X'))\*
         return -10; // Human win
     else
         return 0;   // Draw or neutral
